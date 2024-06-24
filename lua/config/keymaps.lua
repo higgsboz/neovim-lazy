@@ -3,3 +3,4 @@
 -- Add any additional keymaps here
 
 vim.keymap.set("n", "<leader>source", ":luafile ~/.config/nvim/init.lua<CR>")
+vim.keymap.set("n", "-", "<CMD>Oil --float<CR>", { desc = "Open parent directory" })
