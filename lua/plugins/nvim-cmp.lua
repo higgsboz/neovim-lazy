@@ -38,5 +38,11 @@ return {
         end
       end, { "i", "s" }),
     })
+
+    table.insert(opts.sources, 1, {
+      name = "supermaven",
+      group_index = 1,
+      priority = 100,
+    })
   end,
 }
