@@ -4,6 +4,8 @@ return {
   dependencies = {
     "olimorris/neotest-rspec",
     "nvim-neotest/neotest-jest",
+    -- "HiPhish/neotest-busted",
+    "nvim-neotest/neotest-plenary",
   },
   keys = {
     {
@@ -48,6 +50,7 @@ return {
         --   return vim.fn.getcwd()
         -- end,
       },
+      ["neotest-plenary"] = {},
     },
     discovery = {
       concurrent = 1,
