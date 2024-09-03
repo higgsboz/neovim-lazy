@@ -4,6 +4,7 @@ return {
     dependencies = {
       {
         "nvim-telescope/telescope-live-grep-args.nvim",
+        "benfowler/telescope-luasnip.nvim",
       },
     },
     opts = function(_, opts)
@@ -20,6 +21,10 @@ return {
           },
         },
       }
+
+      opts.defaults = vim.tbl_extend("force", opts.defaults, {
+        layout_strategy = "vertical",
+      })
 
       -- opts.defaults = vim.tbl_extend("force", opts.defaults, {
       --   mappings = {
@@ -40,11 +45,17 @@ return {
         "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
         desc = "Grep (root dir)",
       },
+      {
+        "<leader>fs",
+        "<cmd>Telescope luasnip<CR>",
+        desc = "Find snippets",
+      },
     },
     config = function(_, opts)
       local tele = require("telescope")
       tele.setup(opts)
       tele.load_extension("live_grep_args")
+      tele.load_extension("luasnip")
     end,
   },
 }

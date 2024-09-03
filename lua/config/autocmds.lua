@@ -1,3 +1,19 @@
 -- Autocmds are automatically loaded on the VeryLazy event
 -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 -- Add any additional autocmds here
+--
+
+-- local telescope = require("telescope")
+--
+-- local function set_telescope_layout()
+--   local width = vim.api.nvim_win_get_width(0)
+--   local layout = width < 200 and "vertical" or "horizontal"
+--
+--   telescope.setup({
+--     defaults = {
+--       layout_strategy = layout,
+--     },
+--   })
+-- end
+--
+-- vim.api.nvim_create_autocmd("VimResized", { callback = set_telescope_layout })

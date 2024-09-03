@@ -53,6 +53,7 @@ return {
       ["neotest-plenary"] = {},
     },
     discovery = {
+      enabled = false,
       concurrent = 1,
     },
   },
