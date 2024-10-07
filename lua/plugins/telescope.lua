@@ -24,20 +24,15 @@ return {
 
       opts.defaults = vim.tbl_extend("force", opts.defaults, {
         layout_strategy = "vertical",
+        mappings = {
+          i = {
+            ["<C-o>"] = function(prompt_bufnr)
+              require("telescope.actions").select_default(prompt_bufnr)
+              require("telescope.builtin").resume()
+            end,
+          },
+        },
       })
-
-      -- opts.defaults = vim.tbl_extend("force", opts.defaults, {
-      --   mappings = {
-      --     i = {
-      --       ["<C-j>"] = require("telescope.actions").move_selection_next,
-      --       ["<C-k>"] = require("telescope.actions").move_selection_previous,
-      --     },
-      --     n = { -- while in normal mode
-      --       ["<C-j>"] = require("telescope.actions").move_selection_next,
-      --       ["<C-k>"] = require("telescope.actions").move_selection_previous,
-      --     },
-      --   },
-      -- })
     end,
     keys = {
       {

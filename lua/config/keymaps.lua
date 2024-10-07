@@ -24,6 +24,11 @@ vim.keymap.set("n", "<leader>fp", function()
   print("Copied to clipboard: " .. filepath)
 end, { desc = "Copy filepath to clipboard" })
 
+-- Clear quickfix list
+vim.keymap.set("n", "<leader>xc", function()
+  vim.fn.setqflist({}, "f")
+end, { desc = "Clear quickfix list" })
+
 -- Resize window using Meta + arrow keys
 vim.keymap.set("n", "7", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
 vim.keymap.set("n", "8", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
