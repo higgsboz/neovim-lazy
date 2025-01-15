@@ -13,3 +13,6 @@ vim.o.foldenable = true
 
 -- Picker
 vim.g.lazyvim_picker = "telescope"
+
+-- AI
+vim.g.ai_cmp = false

@@ -6,29 +6,18 @@ return {
     servers = {
       eslint = {},
       rubocop = {
-        -- mason = false,
-        cmd = { "rubocop", "--lsp" },
-        -- cmd = { "/opt/homebrew/bin/mise", "x", "--", "rubocop", "--lsp" },
+        mason = false,
+        cmd = { "mise", "x", "--", "rubocop", "--lsp" },
         root_dir = util.root_pattern(".git"),
       },
-      --
-      -- ruby_lsp = {
-      --     mason = false,
-      --     cmd = { vim.fn.expand "~/.asdf/shims/ruby-lsp" },
-      --   },
       ruby_lsp = {
         mason = false,
-        -- cmd = { "ruby-lsp" },
         cmd = { "/opt/homebrew/bin/mise", "x", "--", "ruby-lsp" },
         root_dir = util.root_pattern(".git"),
         init_options = {
           formatter = "rubocop",
         },
       },
-      -- solargraph = {
-      --   enabled = false,
-      -- },
-      -- pyright = {},
     },
     setup = {
       eslint = function()
@@ -40,9 +29,6 @@ return {
           end
         end)
       end,
-      -- rubocop = function()
-      --   print(vim.fn.getcwd())
-      -- end,
     },
   },
 }

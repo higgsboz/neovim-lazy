@@ -7,29 +7,31 @@ return {
     -- "HiPhish/neotest-busted",
     "nvim-neotest/neotest-plenary",
   },
-  keys = {
-    {
-      "<leader>td",
-      desc = "+debug",
-    },
-    {
-      "<leader>tdf",
-      function()
-        require("neotest").run.run({ vim.fn.expand("%"), strategy = "dap" })
-      end,
-      desc = "Debug File",
-    },
-    {
-      "<leader>tdn",
-      function()
-        require("neotest").run.run({ strategy = "dap" })
-      end,
-      desc = "Debug Nearest",
-    },
-  },
+  -- keys = {
+  --   {
+  --     "<leader>td",
+  --     desc = "+debug",
+  --   },
+  --   {
+  --     "<leader>tdf",
+  --     function()
+  --       require("neotest").run.run({ vim.fn.expand("%"), strategy = "dap" })
+  --     end,
+  --     desc = "Debug File",
+  --   },
+  --   {
+  --     "<leader>tdn",
+  --     function()
+  --       require("neotest").run.run({ strategy = "dap" })
+  --     end,
+  --     desc = "Debug Nearest",
+  --   },
+  -- },
   opts = {
     adapters = {
-      ["neotest-rspec"] = {},
+      ["neotest-rspec"] = {
+        root_files = { "Dockerfile" },
+      },
       ["neotest-jest"] = {
         -- jestCommand = "pnpm test --",
         env = { CI = true },
