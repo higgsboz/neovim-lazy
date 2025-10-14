@@ -12,7 +12,7 @@ vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
 -- Picker
-vim.g.lazyvim_picker = "telescope"
+vim.g.lazyvim_picker = "snacks"
 
 -- AI
 vim.g.ai_cmp = false
