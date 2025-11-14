@@ -5,17 +5,26 @@ return {
   opts = {
     servers = {
       eslint = {},
-      rubocop = {
-        mason = false,
-        cmd = { "mise", "x", "--", "rubocop", "--lsp" },
-        root_dir = util.root_pattern(".git"),
-      },
+      -- Disable separate rubocop LSP since Ruby LSP has built-in RuboCop integration
+      -- rubocop = {
+      --   mason = false,
+      --   cmd = { "mise", "x", "--", "rubocop", "--lsp" },
+      --   root_dir = util.root_pattern("Gemfile", ".rubocop.yml", ".git"),
+      -- },
       ruby_lsp = {
         mason = false,
-        cmd = { "/opt/homebrew/bin/mise", "x", "--", "ruby-lsp" },
-        root_dir = util.root_pattern(".git"),
+        cmd = { "mise", "x", "--", "ruby-lsp" },
+        root_dir = util.root_pattern("Gemfile", ".ruby-version", ".tool-versions", ".git"),
         init_options = {
-          formatter = "rubocop",
+          -- Use internal RuboCop integration to avoid conflicts
+          formatter = "rubocop_internal",
+        },
+        -- Add some additional settings for better compatibility
+        settings = {
+          rubyLsp = {
+            -- Enable experimental features if needed
+            experimentalFeaturesEnabled = false,
+          },
         },
       },
     },
@@ -28,6 +37,10 @@ return {
             client.server_capabilities.documentFormattingProvider = false
           end
         end)
+      end,
+      ruby_lsp = function()
+        -- Ruby LSP setup is complete - it should work across different Ruby versions
+        -- The stderr warnings about RuboCop plugins are just deprecation notices
       end,
     },
   },

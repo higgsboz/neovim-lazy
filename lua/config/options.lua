@@ -16,3 +16,6 @@ vim.g.lazyvim_picker = "snacks"
 
 -- AI
 vim.g.ai_cmp = false
+
+-- Reduce LSP log noise (RuboCop deprecation warnings)
+vim.lsp.set_log_level("WARN")
