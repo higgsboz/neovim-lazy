@@ -1,99 +1,66 @@
-local util = require("lspconfig.util")
-
 return {
   "neovim/nvim-lspconfig",
   opts = {
     servers = {
       eslint = {},
-      -- Disable separate rubocop LSP since Ruby LSP has built-in RuboCop integration
-      -- rubocop = {
-      --   mason = false,
-      --   cmd = { "mise", "x", "--", "rubocop", "--lsp" },
-      --   root_dir = util.root_pattern("Gemfile", ".rubocop.yml", ".git"),
-      -- },
       ruby_lsp = {
         mason = false,
-        cmd = { "mise", "x", "--", "ruby-lsp" },
-        root_dir = util.root_pattern("Gemfile", ".ruby-version", ".tool-versions", ".git"),
-        init_options = {
-          -- Use internal RuboCop integration to avoid conflicts
-          formatter = "rubocop_internal",
+        cmd = {
+          "mise",
+          "x",
+          "ruby",
+          "--",
+          "ruby-lsp",
         },
-        -- Add some additional settings for better compatibility
+        -- root_dir = require("lspconfig.util").root_pattern("Gemfile", ".ruby-version", ".tool-versions", ".git"),
         settings = {
-          rubyLsp = {
-            -- Enable experimental features if needed
-            experimentalFeaturesEnabled = false,
+          ruby = {
+            useBundler = true,
           },
         },
       },
     },
+    -- servers = {
+    --   eslint = {},
+    --   ruby_lsp = {
+    --     mason = false,
+    --     -- Use the globally installed ruby-lsp from mise, not through bundler
+    --     cmd = { "mise", "x", "ruby", "--", "ruby-lsp" },
+    --     root_dir = util.root_pattern("Gemfile", ".ruby-version", ".tool-versions", ".git"),
+    --     -- root_markers = { "Gemfile", ".ruby-version", ".tool-versions", ".git" },
+    --     init_options = {
+    --       -- Use auto formatter detection to pick up local RuboCop config
+    --       formatter = "auto",
+    --       linters = { "rubocop" },
+    --     },
+    --     settings = {
+    --       rubyLsp = {
+    --         -- Enable experimental features for better functionality
+    --         experimentalFeaturesEnabled = true,
+    --         -- Ensure RuboCop uses local configuration and bundled version
+    --         rubocop = {
+    --           -- Use bundler to ensure we get the project's RuboCop version
+    --           useBundlerForRubocop = true,
+    --           -- Disable RuboCop server to avoid version conflicts
+    --           safeAutocorrect = false,
+    --         },
+    --       },
+    --     },
+    --   },
+    -- },
     setup = {
       eslint = function()
-        require("lazyvim.util").lsp.on_attach(function(client)
-          if client.name == "eslint" then
-            client.server_capabilities.documentFormattingProvider = true
-          elseif client.name == "tsserver" then
-            client.server_capabilities.documentFormattingProvider = false
-          end
-        end)
-      end,
-      ruby_lsp = function()
-        -- Ruby LSP setup is complete - it should work across different Ruby versions
-        -- The stderr warnings about RuboCop plugins are just deprecation notices
+        vim.api.nvim_create_autocmd("LspAttach", {
+          callback = function(args)
+            local client = vim.lsp.get_client_by_id(args.data.client_id)
+            if client and client.name == "eslint" then
+              client.server_capabilities.documentFormattingProvider = true
+            elseif client and client.name == "tsserver" then
+              client.server_capabilities.documentFormattingProvider = false
+            end
+          end,
+        })
       end,
     },
   },
 }
-
--- Possible solution to have erb_lint work with ruby_lsp
-
--- return {
---   "neovim/nvim-lspconfig",
---   opts = {
---     servers = {
---       -- Your existing configuration
---       ruby_lsp = {
---         mason = false,
---         cmd = { "/opt/homebrew/bin/mise", "x", "--", "ruby-lsp" },
---         root_dir = util.root_pattern(".git"),
---         init_options = {
---           formatter = "rubocop",
---           enabledFeatures = {
---             "codeActions",
---             "diagnostics",
---             "documentHighlights",
---             "documentLink",
---             "documentSymbols",
---             "foldingRanges",
---             "formatting",
---             "hover",
---             "inlayHint",
---             "onTypeFormatting",
---             "selectionRanges",
---             "semanticHighlighting",
---             "completion",
---             "codeLens",
---             "definition",
---             "workspaceSymbol"
---           },
---           -- Add this section to enable ERB-Lint integration
---           experimentalFeaturesEnabled = true,
---           embeddedLanguages = {
---             erb = {
---               enabled = true,
---               formatter = {
---                 command = "/opt/homebrew/bin/mise",
---                 args = { "exec", "ruby", "--", "erb_lint", "--autocorrect", "--stdin", "${INPUT}" },
---               },
---               linter = {
---                 command = "/opt/homebrew/bin/mise",
---                 args = { "exec", "ruby", "--", "erb_lint", "--lint", "${FILE}" },
---               },
---             },
---           },
---         },
---       },
---     },
---   },
--- }
