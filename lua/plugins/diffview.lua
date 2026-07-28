@@ -10,6 +10,11 @@ return {
     { ",x", "<cmd>DiffviewClose<CR>", desc = "Close Diff View" },
     {
       ",hm",
+      "<Cmd>DiffviewOpen master..HEAD<CR>",
+      desc = "Diff Against Master",
+    },
+    {
+      ",hom",
       "<Cmd>DiffviewOpen origin/master..HEAD<CR>",
       desc = "Diff Against Master",
     },
