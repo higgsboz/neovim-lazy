@@ -2,6 +2,9 @@ return {
   "neovim/nvim-lspconfig",
   opts = {
     servers = {
+      yamlls = {
+        filetypes = { "yaml", "yaml.docker-compose" },
+      },
       eslint = {},
       ruby_lsp = {
         mason = false,
@@ -10,6 +13,9 @@ return {
             useBundler = true,
           },
         },
+      },
+      rubocop = {
+        enabled = false,
       },
       sorbet = {
         mason = false,
