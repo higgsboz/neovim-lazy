@@ -13,11 +13,17 @@ vim.keymap.set("n", "<C-l>", nvim_tmux_nav.NvimTmuxNavigateRight)
 vim.keymap.set("n", "<C-\\>", nvim_tmux_nav.NvimTmuxNavigateLastActive)
 vim.keymap.set("n", "<C-Space>", nvim_tmux_nav.NvimTmuxNavigateNext)
 
+-- vim.keymap.set("n", "<leader>fp", function()
+--   local filepath = vim.fn.expand("%:p")
+--   vim.fn.setreg("+", filepath)
+--   print("Copied to clipboard: " .. filepath)
+-- end, { desc = "Copy filepath to clipboard" })
+
 vim.keymap.set("n", "<leader>fp", function()
-  local filepath = vim.fn.expand("%:p")
+  local filepath = vim.fn.expand("%:.")
   vim.fn.setreg("+", filepath)
   print("Copied to clipboard: " .. filepath)
-end, { desc = "Copy filepath to clipboard" })
+end, { desc = "Copy repo path to clipboard" })
 
 -- Resize window using Meta + arrow keys
 vim.keymap.set("n", "<M-7>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })

@@ -7,10 +7,11 @@ return {
     { ",hl", "<Esc><Cmd>'<,'>DiffviewFileHistory --follow<CR>", desc = "Range History", mode = "v" },
     { ",hl", "<Cmd>.DiffviewFileHistory --follow<CR>", desc = "Line History", mode = "n" },
     { ",d", "<cmd>DiffviewOpen<CR>", desc = "Repo Diff" },
+    { ",x", "<cmd>DiffviewClose<CR>", desc = "Close Diff View" },
     {
       ",hm",
-      "<Cmd>DiffviewOpen HEAD..origin/develop<CR>",
-      desc = "Diff Against Develop",
+      "<Cmd>DiffviewOpen origin/master..HEAD<CR>",
+      desc = "Diff Against Master",
     },
     -- {
     --   ",hM",
@@ -19,7 +20,5 @@ return {
     --   end,
     --   desc = "Diff Against Origin/Master",
     -- },
-    { ",d", "<cmd>DiffviewOpen<CR>", desc = "Repo Diff" },
-    { ",x", "<cmd>DiffviewClose<CR>", desc = "Close Diff View" },
   },
 }
